@@ -111,7 +111,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // 如果本地未安装抖音或者抖音的版本过低，会直接自动调用 web页面 进行授权
-                //login();
                 sendAuth();
             }
         });
@@ -130,8 +129,8 @@ public class MainActivity extends AppCompatActivity {
                 request.scope = mScope;// 用户授权时必选权限
                 request.state = "ww";                                   // 用于保持请求和回调的状态，授权请求后原样带回给第三方。
                 douYinOpenApi.authorize(request);*/
-                //DouYinEntryActivity.itemGet(1,0);
-                DouYinEntryActivity.GetitemMessage(DouYinEntryActivity.json,1,0);
+                DouYinEntryActivity.itemGet(1,0);
+                //DouYinEntryActivity.GetitemMessage(DouYinEntryActivity.json,1,0);
             }
         });
 
@@ -149,25 +148,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        findViewById(R.id.option_mobile).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Authorization.Request request = new Authorization.Request();
-                request.scope = "user_info";// 用户授权时必选权限
-                request.scope = mScope;
-                request.optionalScope0 = "mobile";
-                request.state = "ww";                                   // 用于保持请求和回调的状态，授权请求后原样带回给第三方。
-                douYinOpenApi.authorize(request);
-            }
-        });
 
-        findViewById(R.id.is_support_mix_share_button).setOnClickListener((v)->{
-            if(douYinOpenApi.isAppSupportMixShare()) {
-                Toast.makeText(this,"支持混合分享",Toast.LENGTH_SHORT).show();
-            }else{
-                Toast.makeText(this,"不支持混合分享",Toast.LENGTH_SHORT).show();
-            }
-        });
 
         findViewById(R.id.share_to_contact).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -206,36 +187,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        mShareToDouyin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                share(currentShareType);
-            }
-        });
-        String useFileProviderText = this.getString(R.string.share_user_file_provider);
-        Button useFileProviderBt = findViewById(R.id.use_file_provider);
-        useFileProviderBt.setText(useFileProviderText+useFileProvider);
-        useFileProviderBt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                useFileProvider = !useFileProvider;
-                useFileProviderBt.setText(useFileProviderText+useFileProvider);
-            }
-        });
 
     }
-
-    /*private void login()
-    {
-        String client_key="awgbg6d164ck9qqr";
-        DouYinOpenApiFactory.init(new DouYinOpenConfig(client_key));
-        DouYinOpenApi douYinOpenApi=DouYinOpenApiFactory.create(this);
-        Authorization.Request request=new Authorization.Request();
-        request.scope="trial.whitelist,user_info";
-        //request.scope="discover.ent";
-        request.callerLocalEntry="com.bytedance.sdk.share.demo.MainActivity";
-        douYinOpenApi.authorize(request);
-    }*/
     private void createTikTokImplApi(int targetApp) {
         douYinOpenApi = DouYinOpenApiFactory.create(this);
     }
@@ -463,38 +416,5 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return result;
-    }
-    public void get(String Configurl) {//get方法，用于GET接口
-        Toast.makeText(this,"get",Toast.LENGTH_SHORT).show();
-        //Call call = Client.newCall(request);
-        //接口：
-        //https://open.douyin.com/discovery/ent/rank/item/电影榜、电视剧榜、综艺榜
-        //https://open.douyin.com/oauth/access_token/获取accesstoken
-        //GET/discovery/ent/rank/version/综艺榜单版本
-        OkHttpClient client = new OkHttpClient();
-        Request request = new Request
-                .Builder() //利用建造者模式创建Request对象
-                .url(Configurl) //设置请求的URL
-                .build(); //生成Request对象
-        Response response = null;
-        try {
-            //将请求添加到请求队列等待执行，并返回执行后的Response对象
-            response = client.newCall(request).execute();
-            //获取Http Status Code.其中200表示成功
-            if (response.code() == 200) {
-                //response.body().string()是获取返回的结果，此句话只能调用一次，再次调用获得不到结果。
-                //将结果使用result变量接收
-                String result = response.body().string();
-                Toast.makeText(this,"成功",Toast.LENGTH_SHORT).show();
-                Log.d("成功", result);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (response != null) {
-                response.body().close();
-            }
-        }
-        Toast.makeText(this,Configurl,Toast.LENGTH_SHORT).show();
     }
 }
