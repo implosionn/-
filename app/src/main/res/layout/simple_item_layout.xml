@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp">
+
+    <ImageView
+        android:id="@+id/i_image"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_launcher_background"
+        />
+
+    <TextView
+        android:id="@+id/t_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@id/i_image"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="这里是标题"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        />
+
+    <TextView
+        android:id="@+id/t_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/t_title"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/i_image"
+        android:ellipsize="end"
+        android:maxLines="3"
+        android:text="abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz"
+        android:textSize="18dp"
+        />
+
+</RelativeLayout>
